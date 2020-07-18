@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+echo "Installing vim-plug"
+curl -fLo ~/dotfiles/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+echo "Installing tpm"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+echo "symlinking nvim"
+ln -s ~/dotfiles/nvim ~/.config
+
+echo "symlinking tmux"
+ln -s ~/dotfiles/.tmux.conf ~/
