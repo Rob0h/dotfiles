@@ -12,5 +12,8 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 echo "symlinking nvim"
 ln -s ~/dotfiles/nvim ~/.config
 
+echo "symlinking coc"
+ln -s ~/dotfiles/coc ~/.config
+
 echo "symlinking tmux"
 ln -s ~/dotfiles/.tmux.conf ~/
