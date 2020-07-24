@@ -82,6 +82,9 @@ nnoremap * :keepjumps normal! mi*`i<CR>
 " force filetype ruby for .rbi
 autocmd BufNewFile,BufRead *.rbi set syntax=ruby
 
+" check if file changed on focus
+au FocusGained,BufEnter * :checktime
+
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
