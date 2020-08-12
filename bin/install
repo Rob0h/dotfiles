@@ -17,3 +17,6 @@ ln -s ~/dotfiles/coc ~/.config
 
 echo "symlinking tmux"
 ln -s ~/dotfiles/.tmux.conf ~/
+
+echo "symlinking alacritty"
+ln -s ~/dotfiles/alacritty ~/.config/alacritty
