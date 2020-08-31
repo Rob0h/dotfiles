@@ -77,6 +77,11 @@ nmap <leader>p :VimuxPromptCommand<CR>
 " shortcut for vimux open
 nmap <leader>o :call VimuxOpenRunner()<CR>
 
+" Remaps for vim-fugitive
+nmap <leader>gs :G<CR>
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gl :diffget //2<CR>
+
 " Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
 
@@ -106,6 +111,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+
+" run imports command
+let g:go_fmt_command = "goimports"
 
 " shortcut for editing notes
 command! Notes botright vsp ~/notes.md | vertical resize 75
