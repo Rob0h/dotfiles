@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'thoughtbot/vim-rspec'
@@ -15,6 +15,9 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
+Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'benmills/vimux'
@@ -58,14 +61,18 @@ set autoread
 " new leader
 let mapleader = " "
 
-augroup netrw_mapping
+let g:NERDTreeWinSize=60
+
+augroup nerdtree_mapping
   autocmd!
-  autocmd filetype netrw call NetrwMapping()
+  autocmd filetype nerdtree call NerdTreeMapping()
 augroup END
 
-function! NetrwMapping()
-  nnoremap <silent> <buffer> <c-l> :TmuxNavigateRight<CR>
+function! NerdTreeMapping()
   nnoremap <silent> <buffer> <c-h> :TmuxNavigateLeft<CR>
+  nnoremap <silent> <buffer> <c-j> :TmuxNavigateDown<CR>
+  nnoremap <silent> <buffer> <c-k> :TmuxNavigateUp<CR>
+  nnoremap <silent> <buffer> <c-l> :TmuxNavigateRight<CR>
 endfunction
 
 " Remap keys for gotos
@@ -80,7 +87,7 @@ nmap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 
 " shortcut for explorer
-nnoremap <leader>e :30Lex<CR>
+nnoremap <leader>e :NERDTreeFind<CR>
 
 " shortcut for vimux prompt
 nmap <leader>p :VimuxPromptCommand<CR>
