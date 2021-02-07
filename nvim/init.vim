@@ -23,6 +23,7 @@ Plug 'morhetz/gruvbox'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rob0h/vimux-golang'
+Plug 'vimwiki/vimwiki'
 
 " Initialize plugin system
 call plug#end()
@@ -81,6 +82,25 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Use K to show documentation in preview window.
+noremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>c :CocDiagnostics<CR>
+
 " Remap keys for fzf
 nmap <silent> <C-p> :Files<CR>
 nmap <silent> <C-f> :Rg<CR>
@@ -88,6 +108,7 @@ nnoremap <silent> <leader>b :Buffers<CR>
 
 " shortcut for explorer
 nnoremap <leader>e :NERDTreeFind<CR>
+nnoremap <leader>E :NERDTreeClose<CR>
 
 " shortcut for vimux prompt
 nmap <leader>p :VimuxPromptCommand<CR>
@@ -115,8 +136,10 @@ au FocusGained,BufEnter * :checktime
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 
-" add typings to status line
-let g:go_auto_type_info = 1
+" disable seeing :GoDoc (K)
+" this is handled by LanguageClient [LC]
+let g:go_doc_popup_window = 1
+let g:go_doc_keywordprg_enabled = 0
 
 " extra syntax highlighting for Go
 let g:go_highlight_build_constraints = 1
