@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', {'branch': 'master', 'do': ':GoUpdateBinaries' }
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'thoughtbot/vim-rspec'
 Plug 'junegunn/fzf'
@@ -24,6 +24,7 @@ Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rob0h/vimux-golang'
 Plug 'vimwiki/vimwiki'
+Plug 'zerowidth/vim-copy-as-rtf'
 
 " Initialize plugin system
 call plug#end()
@@ -129,6 +130,9 @@ nnoremap * :keepjumps normal! mi*`i<CR>
 " force filetype ruby for .rbi
 autocmd BufNewFile,BufRead *.rbi set syntax=ruby
 
+" force filetype ruby for .tf
+autocmd BufNewFile,BufRead *.tf set syntax=terraform
+
 " check if file changed on focus
 au FocusGained,BufEnter * :checktime
 
@@ -159,3 +163,5 @@ let g:go_fmt_command = "goimports"
 command! Notes botright vsp ~/notes.md | vertical resize 75
 nnoremap <leader>n :Notes<CR>
 
+" format json
+com! FormatJSON %!python -m json.tool

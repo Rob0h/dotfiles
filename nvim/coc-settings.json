@@ -14,7 +14,7 @@
       "initializationOptions": {},
       "settings": {},
       "disableWorkspaceFolders": true
-    },
+    }
   },
   "tsserver.npm": "/usr/local/bin/npm"
 }
