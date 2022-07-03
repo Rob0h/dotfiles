@@ -17,18 +17,18 @@ font:
   # UI for powerline & tmux bottom bar.
   normal:
     # Font name
-    family: MesloLGS NF
+    family: Meslo LG S for Powerline
     # Font face
     style: Regular
 
   # Bold font face
   bold:
-    family: MesloLGS NF
+    family: Meslo LG S for Powerline
     style: Bold
 
   # Italic font face
   italic:
-    family: MesloLGS NF
+    family: Meslo LG S for Powerline
     style: Italic
 
   # Bold italic font face
@@ -36,7 +36,7 @@ font:
   #italic & it just works. You may specifiy the bold italic version if it exists
   # for your font
   bold_italic:
-    family: MesloLGS NF
+    family: Meslo LG S for Powerline
     style: Italic
 
   # Font size

@@ -2,12 +2,22 @@
 
 set -e
 
+if fc-list | grep Meslo > /dev/null 2>&1; then
+  echo "Meslo font exists. Skipping installation of Meslo font..."
+else
+  echo "Meslo font not found. Installing Meslo font..."
+  git clone https://github.com/powerline/fonts.git ~/fonts --depth=1 && \
+    ~/fonts/install.sh
+  rm -rf ~/fonts
+fi
+
 if infocmp alacritty > /dev/null 2>&1; then
   echo "alacritty terminfo found. Skipping installation of alacritty terminfo..."
 else
   echo "alacritty terminfo not found. Installing alacritty terminfo..."
   curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info > ~/alacritty.info
   sudo tic -xe alacritty,alacritty-direct ~/alacritty.info
+  rm ~/alacritty.info
 fi
 
 echo "symlinking alacritty"
@@ -42,7 +52,7 @@ ln -nsf ~/dotfiles/.tmux.conf ~/
 
 if [ ! -d ~/.tmux/plugins/tpm ]; then
   echo "tpm not found. Installing tpm..."
-  run git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && \
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && \
     ~/.tmux/plugins/tpm/bin/install_plugins
 else
   echo "tpm found. Skipping installation of tpm..."
