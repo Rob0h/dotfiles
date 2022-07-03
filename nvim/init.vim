@@ -77,6 +77,9 @@ function! NerdTreeMapping()
   nnoremap <silent> <buffer> <c-l> :TmuxNavigateRight<CR>
 endfunction
 
+" Coc extensions
+let g:coc_global_extensions=['coc-tsserver', 'coc-rust-analyzer', 'coc-pyright', 'coc-html', 'coc-css', 'coc-json']
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)

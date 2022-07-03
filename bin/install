@@ -2,27 +2,48 @@
 
 set -e
 
-echo "Installing vim-plug"
-curl -fLo ~/dotfiles/nvim/autoload/plug.vim --create-dirs \
+if infocmp alacritty > /dev/null 2>&1; then
+  echo "alacritty terminfo found. Skipping installation of alacritty terminfo..."
+else
+  echo "alacritty terminfo not found. Installing alacritty terminfo..."
+  curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info > ~/alacritty.info
+  sudo tic -xe alacritty,alacritty-direct ~/alacritty.info
+fi
+
+echo "symlinking alacritty"
+ln -nsf ~/dotfiles/alacritty ~/.config/alacritty
+
+if command -v nvim > /dev/null 2>&1; then
+  echo "neovim found. Skipping installation of neovim..."
+else
+  echo "neovim not found. Installing neovim..."
+  brew install neovim
+fi
+
+echo "symlinking nvim"
+ln -nsf ~/dotfiles/nvim ~/.config
+
+if [ ! -f ~/dotfiles/nvim/autoload/plug.vim ]; then
+  echo "Installing vim-plug"
+  curl -fLo ~/dotfiles/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+else
+  echo "vim-plug found. Skipping installation of vim-plug..."
+fi
 
 echo "Install vim-plug plugins"
 nvim --headless +PlugInstall +qall
 
-echo "Installing tpm"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-echo "Installing tpm plugins"
-~/.tmux/plugins/tpm/bin/install_plugins
-
-echo "symlinking nvim"
-ln -s ~/dotfiles/nvim ~/.config
-
 echo "symlinking coc"
-ln -s ~/dotfiles/coc ~/.config
+ln -nsf ~/dotfiles/coc ~/.config
 
 echo "symlinking tmux"
-ln -s ~/dotfiles/.tmux.conf ~/
+ln -nsf ~/dotfiles/.tmux.conf ~/
 
-echo "symlinking alacritty"
-ln -s ~/dotfiles/alacritty ~/.config/alacritty
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+  echo "tpm not found. Installing tpm..."
+  run git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && \
+    ~/.tmux/plugins/tpm/bin/install_plugins
+else
+  echo "tpm found. Skipping installation of tpm..."
+fi
