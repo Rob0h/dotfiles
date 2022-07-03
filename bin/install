@@ -27,7 +27,13 @@ if command -v nvim > /dev/null 2>&1; then
   echo "neovim found. Skipping installation of neovim..."
 else
   echo "neovim not found. Installing neovim..."
-  brew install neovim
+
+  if [ "$(uname)" = "Darwin" ]; then
+    brew install neovim
+  else
+    echo "Install neovim on your own!"
+    exit 1
+  fi
 fi
 
 echo "symlinking nvim"
