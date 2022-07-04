@@ -2,6 +2,42 @@
 
 set -e
 
+if [ ! -d ~/.oh-my-zsh ]; then
+  echo "oh-my-zsh not found. Installing oh-my-zsh..."
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  echo "oh-my-zsh found. Skipping installation of oh-my-zsh..."
+fi
+
+if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+  echo "zsh-autosuggestions not found. Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+else
+  echo "zsh-autosuggestions found. Skipping installation of zsh-autosuggestions..."
+fi
+
+if command -v peco > /dev/null 2>&1; then
+  echo "peco found. Skipping installation of peco..."
+else
+  echo "peco not found. Installing peco..."
+  curl -fLo ~/peco.zip https://github.com/peco/peco/releases/latest/download/peco_darwin_arm64.zip
+  unzip -d ~/ ~/peco.zip
+  mv ~/peco_darwin_arm64/peco /usr/local/bin/
+  rm ~/peco.zip
+  rm -rf ~/peco_darwin_arm64
+fi
+
+if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history ]; then
+  echo "zsh-peco-history not found. Installing zsh-peco-history..."
+  git clone https://github.com/jimeh/zsh-peco-history.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history
+  echo "source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history/zsh-peco-history.zsh" >> ~/.zshrc
+else
+  echo "zsh-peco-history found. Skipping installation of zsh-peco-history..."
+fi
+
+echo "symlinking .zshrc_personal"
+ln -nsf ~/dotfiles/.zshrc_personal ~/.zshrc_personal
+
 if fc-list | grep Meslo > /dev/null 2>&1; then
   echo "Meslo font exists. Skipping installation of Meslo font..."
 else
