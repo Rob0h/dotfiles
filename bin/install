@@ -38,7 +38,6 @@ fi
 if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history ]; then
   echo "zsh-peco-history not found. Installing zsh-peco-history..."
   git clone https://github.com/jimeh/zsh-peco-history.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history
-  echo "source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history/zsh-peco-history.zsh" >> ~/.zshrc
 else
   echo "zsh-peco-history found. Skipping installation of zsh-peco-history..."
 fi
