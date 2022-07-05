@@ -20,11 +20,19 @@ if command -v peco > /dev/null 2>&1; then
   echo "peco found. Skipping installation of peco..."
 else
   echo "peco not found. Installing peco..."
-  curl -fLo ~/peco.zip https://github.com/peco/peco/releases/latest/download/peco_darwin_arm64.zip
-  unzip -d ~/ ~/peco.zip
-  mv ~/peco_darwin_arm64/peco /usr/local/bin/
-  rm ~/peco.zip
-  rm -rf ~/peco_darwin_arm64
+  if [ "$(uname)" = "Darwin" ]; then
+    curl -fLo ~/peco.zip https://github.com/peco/peco/releases/latest/download/peco_darwin_arm64.zip
+    unzip -d ~/ ~/peco.zip
+    mv ~/peco_darwin_arm64/peco /usr/local/bin/
+    rm ~/peco.zip
+    rm -rf ~/peco_darwin_arm64
+  else
+    curl -fLo ~/peco.tar.gz https://github.com/peco/peco/releases/latest/download/peco_linux_amd64.tar.gz
+    tar -xvzf ~/peco.tar.gz
+    sudo mv peco_linux_amd64/peco /usr/local/bin
+    rm ~/peco.tar.gz
+    rm -rf peco_linux_amd64
+  fi
 fi
 
 if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-peco-history ]; then
@@ -37,6 +45,9 @@ fi
 
 echo "symlinking .zshrc_personal"
 ln -nsf ~/dotfiles/.zshrc_personal ~/.zshrc_personal
+
+# TODO: Need to detect if we've already sourced the personal zshrc before adding it.
+# For now, have to source it manually.
 
 if fc-list | grep Meslo > /dev/null 2>&1; then
   echo "Meslo font exists. Skipping installation of Meslo font..."
