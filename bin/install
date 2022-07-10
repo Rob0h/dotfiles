@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
+
+OS="$(uname)"
 
 if [ ! -d ~/.oh-my-zsh ]; then
   echo "oh-my-zsh not found. Installing oh-my-zsh..."
@@ -73,12 +75,13 @@ if command -v nvim > /dev/null 2>&1; then
   echo "neovim found. Skipping installation of neovim..."
 else
   echo "neovim not found. Installing neovim..."
-
-  if [ "$(uname)" = "Darwin" ]; then
+  if [ $OS = "Darwin" ]; then
     brew install neovim
   else
-    echo "Install neovim on your own!"
-    exit 1
+    curl -fLo ~/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    tar -xzvf ~/nvim-linux64.tar.gz -C ~/
+    sudo ln -s ~/nvim-linux64/bin/nvim /usr/local/bin/
+    rm ~/nvim-linux64.tar.gz
   fi
 fi
 
