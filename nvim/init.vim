@@ -168,3 +168,5 @@ nnoremap <leader>n :Notes<CR>
 
 " format json
 com! FormatJSON %!python -m json.tool
+
+lua require('plugins')
