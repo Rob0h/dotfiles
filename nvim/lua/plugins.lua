@@ -15,4 +15,6 @@ return require('packer').startup(function()
       require('litee.gh').setup()
     end,
   }
+
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 end)

@@ -25,6 +25,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'rob0h/vimux-golang'
 Plug 'vimwiki/vimwiki'
 Plug 'zerowidth/vim-copy-as-rtf'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " Initialize plugin system
 call plug#end()
@@ -120,9 +122,10 @@ nmap <leader>p :VimuxPromptCommand<CR>
 nmap <leader>o :call VimuxOpenRunner()<CR>
 
 " Remaps for vim-fugitive
-nmap <leader>gs :G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gl :diffget //2<CR>
+" Trying out Neogit instead
+nmap <leader>gs :Neogit<CR>
 
 " Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
