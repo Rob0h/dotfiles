@@ -2,6 +2,7 @@
   "dependencies": {
     "coc-css": ">=1.2.6",
     "coc-html": ">=1.4.1",
+    "coc-json": ">=1.4.2",
     "coc-pyright": ">=1.1.158",
     "coc-rust-analyzer": ">=0.40.0",
     "coc-tsserver": ">=1.8.6"
