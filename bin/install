@@ -71,8 +71,11 @@ fi
 echo "symlinking alacritty"
 ln -nsf ~/dotfiles/alacritty ~/.config/alacritty
 
-if command -v nvim > /dev/null 2>&1; then
-  echo "neovim found. Skipping installation of neovim..."
+NVIM_VERSION=$(nvim --version | head -n 1 | awk -F v '{print $2}')
+NVIM_MINOR_VERSION=$(echo $NVIM_VERSION | awk -F . '{print $2}')
+# The version # of neovim needs to be higher than 0.5 to use packer
+if [ 5 -lt $NVIM_MINOR_VERSION ]; then
+  echo "neovim $NVIM_VERSION found. Skipping installation of neovim..."
 else
   echo "neovim not found. Installing neovim..."
   if [ $OS = "Darwin" ]; then
@@ -88,7 +91,8 @@ fi
 echo "symlinking nvim"
 ln -nsf ~/dotfiles/nvim ~/.config
 
-if [ ! -f ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
+if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
+  echo "packer not found. Installing packer..."
   git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
  else
@@ -112,6 +116,9 @@ ln -nsf ~/dotfiles/coc ~/.config
 echo "symlinking tmux"
 ln -nsf ~/dotfiles/.tmux.conf ~/
 
+# This is to resolve a bug with automatic installation of TPM relying on a variable to be set.
+# See https://github.com/tmux-plugins/tpm/issues/105
+export TMUX_PLUGIN_MANAGER_PATH='$HOME/.tmux/plugins/'
 if [ ! -d ~/.tmux/plugins/tpm ]; then
   echo "tpm not found. Installing tpm..."
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && \
