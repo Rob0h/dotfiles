@@ -27,6 +27,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'zerowidth/vim-copy-as-rtf'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'hashivim/vim-terraform'
 
 " Initialize plugin system
 call plug#end()

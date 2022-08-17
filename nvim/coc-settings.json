@@ -17,7 +17,17 @@
       "initializationOptions": {},
       "settings": {},
       "disableWorkspaceFolders": true
-    }
+    },
+    	"terraform": {
+			"command": "terraform-ls",
+			"args": ["serve"],
+			"filetypes": [
+				"terraform",
+				"tf"
+			],
+			"initializationOptions": {},
+			"settings": {}
+		}
   },
   "tsserver.npm": "/usr/local/bin/npm"
 }
